@@ -13,12 +13,17 @@
 import numpy as np
 import pytest
 from qiskit.quantum_info import (
+    DensityMatrix,
     Statevector,
+    partial_trace,
     state_fidelity,
 )
 from quimb.tensor import MatrixProductState, MPS_rand_state
 
 from mps_to_circuit import mps_to_circuit
+
+# Natasha's code
+from qsdqc.imps_gs import _ground_state_tfi
 
 
 def _convert_to_little_endian(statevector: np.ndarray) -> np.ndarray:
@@ -143,3 +148,31 @@ def test_mps_to_circuit_approx_method_is_exact_for_chi_2():
     fidelity = state_fidelity(expected, result)
 
     assert np.isclose(fidelity, 1.0)
+
+
+@pytest.mark.parametrize("chi_max", range(1, 9))
+def test_imps_to_circuit_produces_circuit_with_correct_number_of_qubits(chi_max):
+    psi = _ground_state_tfi(g=1.2, max_D=chi_max)[1]
+    A = psi.get_B(0, form="A").itranspose(["vL", "p", "vR"]).to_ndarray()
+    for num_sites in range(1, 4):
+        qc = mps_to_circuit(A, "infinite_exact", shape="lpr", num_sites=num_sites)
+        expected_num_qubits = num_sites + 2 * np.ceil(np.log2(chi_max))
+        np.testing.assert_equal(qc.num_qubits, expected_num_qubits)
+
+
+@pytest.mark.parametrize("chi_max", range(1, 9))
+def test_imps_to_circuit_gives_correct_single_qubit_rdms(chi_max):
+    psi = _ground_state_tfi(g=1.2, max_D=chi_max)[1]
+    A = psi.get_B(0, form="A").itranspose(["vL", "p", "vR"]).to_ndarray()
+    mps_rdm = DensityMatrix(psi.get_rho_segment([0]).to_ndarray())
+    support = int(np.ceil(np.log2(chi_max)))
+    for num_sites in range(1, 4):
+        qc = mps_to_circuit(A, "infinite_exact", shape="lpr", num_sites=num_sites)
+        sv = Statevector(qc)
+        # For each physical (non-support) site, calculate its RDM
+        for site in range(support, qc.num_qubits - support):
+            qubits_to_trace = list(range(qc.num_qubits))
+            qubits_to_trace.remove(site)
+            circuit_rdm = partial_trace(sv, qubits_to_trace)
+            fidelity = state_fidelity(mps_rdm, circuit_rdm)
+            np.testing.assert_almost_equal(fidelity, 1)
