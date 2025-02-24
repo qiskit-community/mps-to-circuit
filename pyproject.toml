@@ -6,8 +6,9 @@ readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [
     "qiskit>=1.0.0",
+    "quimb==1.8.4",
 ]
 
 [tool.uv]
-dev-dependencies = ["pytest>=8.3.3", "ruff>=0.7.0", "quimb==1.8.4"]
+dev-dependencies = ["pytest>=8.3.3", "ruff>=0.7.0"]
 override-dependencies = ["quimb==1.8.4"]
