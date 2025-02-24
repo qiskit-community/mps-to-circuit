@@ -153,26 +153,28 @@ wheels = [
 
 [[package]]
 name = "mps-to-circuit"
-version = "0.0.0"
+version = "0.1.0"
 source = { virtual = "." }
 dependencies = [
     { name = "qiskit" },
+    { name = "quimb" },
 ]
 
 [package.dev-dependencies]
 dev = [
     { name = "pytest" },
-    { name = "quimb" },
     { name = "ruff" },
 ]
 
 [package.metadata]
-requires-dist = [{ name = "qiskit", specifier = ">=1.0.0" }]
+requires-dist = [
+    { name = "qiskit", specifier = ">=1.0.0" },
+    { name = "quimb", specifier = "==1.8.4" },
+]
 
 [package.metadata.requires-dev]
 dev = [
     { name = "pytest", specifier = ">=8.3.3" },
-    { name = "quimb", specifier = "==1.8.4" },
     { name = "ruff", specifier = ">=0.7.0" },
 ]
 
