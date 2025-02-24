@@ -13,14 +13,12 @@
 import numpy as np
 from qiskit import QuantumCircuit
 
-# Natasha's code
-from qsdqc.env_tensor import env_unitary, right_env
-
 from .utils import (
     _gram_schmidt,
     _pad_tensor,
+    _env_unitary,
+    _right_env
 )
-
 
 
 def _imps_to_circuit_exact(A: np.ndarray, *, shape: str = "lpr", n: int) -> QuantumCircuit:
@@ -63,7 +61,7 @@ def _imps_to_circuit_exact(A: np.ndarray, *, shape: str = "lpr", n: int) -> Quan
     U1 = U1.transpose(2, 3, 1, 0)
     U1 = U1.reshape(z * vR, p * vL)
 
-    V = env_unitary(right_env(U1, d=2, D=vL))
+    V = _env_unitary(_right_env(U1, d=2, D=vL))
 
     # Gate sizes
     U_size = int(np.ceil(np.log2(U.shape[0])))
