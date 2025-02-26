@@ -5,7 +5,8 @@ description = "Tool to convert a matrix product state to a Qiskit quantum circui
 readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [
-    "ncon>=2.0.0",
+    "ncon>=2.0.0", #TODO Replace
+    "physics-tenpy>=1.0.5", #TODO Replace
     "qiskit>=1.0.0",
     "quimb==1.8.4",
 ]
