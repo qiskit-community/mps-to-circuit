@@ -18,10 +18,7 @@ from .tensor import (
     _pad_tensor,
     _prepare_mps,
 )
-from .env_tensor import (
-    _right_env,
-    _env_unitary
-)
+from .env_tensor import _right_env, _env_unitary
 
 __all__ = [
     "_gram_schmidt",
@@ -30,5 +27,5 @@ __all__ = [
     "_pad_tensor",
     "_prepare_mps",
     "_right_env",
-    "_env_unitary"
+    "_env_unitary",
 ]

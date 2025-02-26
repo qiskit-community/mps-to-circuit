@@ -12,6 +12,7 @@ import numpy as np
 from ncon import ncon
 from scipy.sparse.linalg import eigs
 
+
 def _right_env(u: np.ndarray, d: int, D: int, tolerance: float = 1e-08) -> np.ndarray:
     """
     Calculates the right environment of a given translationally invariant MPS.
@@ -31,7 +32,9 @@ def _right_env(u: np.ndarray, d: int, D: int, tolerance: float = 1e-08) -> np.nd
     zero[0] = 1
 
     u = u.reshape([d, D, d, D])
-    transfer = ncon([zero, u, np.conj(u), zero], ([1], [1, -3, 2, -1], [3, -4, 2, -2], [3]))
+    transfer = ncon(
+        [zero, u, np.conj(u), zero], ([1], [1, -3, 2, -1], [3, -4, 2, -2], [3])
+    )
     assert np.allclose(np.eye(D), ncon(transfer, [1, 1, -1, -2]), atol=tolerance)
     trans_matrix = transfer.reshape(D * D, D * D)
 
