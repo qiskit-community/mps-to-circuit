@@ -9,6 +9,7 @@
 # that they have been altered from the originals.
 
 
+from .env_tensor import _env_unitary, _right_env
 from .matrix import (
     _gram_schmidt,
     _has_orthonormal_columns,
@@ -18,7 +19,6 @@ from .tensor import (
     _pad_tensor,
     _prepare_mps,
 )
-from .env_tensor import _right_env, _env_unitary
 
 __all__ = [
     "_gram_schmidt",

@@ -13,7 +13,7 @@
 import numpy as np
 from qiskit import QuantumCircuit
 
-from .utils import _gram_schmidt, _pad_tensor, _env_unitary, _right_env
+from .utils import _env_unitary, _gram_schmidt, _pad_tensor, _right_env
 
 
 def _imps_to_circuit_exact(
