@@ -1,5 +1,7 @@
 # MPS to circuit
 
+[![DOI](https://zenodo.org/badge/840381942.svg)](https://doi.org/10.5281/zenodo.14920028)
+
 Toolbox for converting matrix product states to Qiskit quantum circuits.
 
 ## Usage with Quimb
@@ -90,25 +92,35 @@ One can format the code using the [Ruff Formatter](https://github.com/astral-sh/
 uv run ruff format
 ```
 
-### Sorting imports
-
-In order to both sort imports and format, call the Ruff linter and then the formatter:
-
-```sh
-uv run ruff check --select I --fix
-uv run ruff format
-```
-
 ### Code of conduct
 
 All members of this project agree to adhere to the Qiskit Code of Conduct listed
 [here](https://github.com/Qiskit/qiskit/blob/master/CODE_OF_CONDUCT.md).
 
-## License
+## Citation
 
-[Apache-2.0 license](LICENSE.txt)
+If you use `mps-to-circuit` please cite as per the BibTeX below.
+
+```bibtex
+@software{mpstocircuit2025,
+  author       = {D. A. Millar,
+                  G. W. Pennington,
+                  N. T. M. Siow and
+                  S. J. Thomson},
+  title        = {qiskit-community/mps-to-circuit},
+  month        = feb,
+  year         = 2025,
+  publisher    = {Zenodo},
+  doi          = {10.5281/zenodo.14920029},
+  url          = {https://doi.org/10.5281/zenodo.14920029},
+}
+```
 
 ## Acknowledgements
 
 This work was supported by the Hartree National Centre for Digital Innovation, a collaboration
 between the Science and Technology Facilities Council and IBM.
+
+## License
+
+[Apache-2.0 license](LICENSE.txt)

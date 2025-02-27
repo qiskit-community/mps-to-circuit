@@ -1,9 +1,9 @@
 [project]
 name = "mps-to-circuit"
-version = "0.1.0"
+version = "0.1.1"
 description = "Tool to convert a matrix product state to a Qiskit quantum circuit."
 readme = "README.md"
-requires-python = ">=3.10"
+requires-python = ">=3.10, <3.13"
 dependencies = [
     "ncon>=2.0.0", #TODO Replace
     "physics-tenpy>=1.0.5", #TODO Replace
@@ -11,6 +11,16 @@ dependencies = [
     "quimb==1.8.4",
 ]
 
+[tool.setuptools]
+license-files = []
+
 [tool.uv]
-dev-dependencies = ["pytest>=8.3.3", "ruff>=0.7.0"]
+dev-dependencies = [
+    "pytest>=8.3.3",
+    "pytest-cov>=6.0.0",
+    "ruff>=0.7.0",
+]
 override-dependencies = ["quimb==1.8.4"]
+
+[tool.ruff]
+lint.extend-select = ["I"]
