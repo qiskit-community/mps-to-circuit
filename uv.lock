@@ -201,7 +201,6 @@ name = "mps-to-circuit"
 version = "0.1.1"
 source = { virtual = "." }
 dependencies = [
-    { name = "ncon" },
     { name = "physics-tenpy" },
     { name = "qiskit" },
     { name = "quimb" },
@@ -216,7 +215,6 @@ dev = [
 
 [package.metadata]
 requires-dist = [
-    { name = "ncon", specifier = ">=2.0.0" },
     { name = "physics-tenpy", specifier = ">=1.0.5" },
     { name = "qiskit", specifier = ">=1.0.0" },
     { name = "quimb", specifier = "==1.8.4" },
@@ -227,18 +225,6 @@ dev = [
     { name = "pytest", specifier = ">=8.3.3" },
     { name = "pytest-cov", specifier = ">=6.0.0" },
     { name = "ruff", specifier = ">=0.7.0" },
-]
-
-[[package]]
-name = "ncon"
-version = "2.0.0"
-source = { registry = "https://pypi.org/simple" }
-dependencies = [
-    { name = "numpy" },
-]
-sdist = { url = "https://files.pythonhosted.org/packages/55/f5/20e6a201e45dd1b77bc6cb7a1bb46d3bbeb790d63f38d41534d5e686708a/ncon-2.0.0.tar.gz", hash = "sha256:b307e6d8c1d14ddac2510256c2955e5b9d3b6f4916ec8932be1cd11490bfb28a", size = 11199 }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/46/b7/d507c8624babf43dbff7ec9f39042299bcf1173d789127dc495d0e86bd18/ncon-2.0.0-py3-none-any.whl", hash = "sha256:561c39da0bf0fc6c993b22f27593bd592ce2c4f689fb66508cd84d3e46054c95", size = 8642 },
 ]
 
 [[package]]
