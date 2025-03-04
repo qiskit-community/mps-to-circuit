@@ -51,11 +51,11 @@ def _imps_to_circuit_exact(
     unitary = _gram_schmidt(matrix)
 
     # Calculate the right-environment tensor, for this unitary needs to have shape z * vR, p * vL
-    U1 = unitary.reshape(d_left, d, z, d_right)
-    U1 = U1.transpose(2, 3, 1, 0)
-    U1 = U1.reshape(z * d_right, d * d_left)
+    u_right = unitary.reshape(d_left, d, z, d_right)
+    u_right = u_right.transpose(2, 3, 1, 0)
+    u_right = u_right.reshape(z * d_right, d * d_left)
 
-    env_unitary = _env_unitary(_right_env(U1, d=2, D=d_left))
+    env_unitary = _env_unitary(_right_env(u_right, d=2, d_left=d_left))
 
     # Gate sizes
     u_size = int(np.ceil(np.log2(unitary.shape[0])))

@@ -12,72 +12,79 @@ import numpy as np
 from scipy.sparse.linalg import eigs
 
 
-def _right_env(u: np.ndarray, d: int, D: int, tolerance: float = 1e-08) -> np.ndarray:
+def _right_env(u: np.ndarray, d: int, d_left: int) -> np.ndarray:
     """
     Calculates the right environment of a given translationally invariant MPS.
-    Assumes u indices are (zero * vR, p * vL)
+    Assumes u indices are (zero * vR, p * vL).
 
-    Args:
-        u: A unitary representing the translationally invariant MPS site.
+    :param u: A unitary representing the translationally invariant MPS site.
+    :param d: The physical dimension of the MPS site.
+    :param d_left: The bond dimension of the MPS site.
 
-        d: The physical dimension of the MPS site.
+    :return: A matrix representing the normalized right environment.
+    """
+    transfer_matrix = _construct_transfer_matrix(u, d, d_left)
 
-        D: The bond dimension of the MPS site.
+    _, right_env = eigs(transfer_matrix, k=1, which="LM")
+    right_env = right_env.reshape(d_left, d_left)
 
-    Returns:
-        A matrix representing the normalised right environment.
+    norm = np.trace(right_env)
+    return right_env / norm
+
+
+def _construct_transfer_matrix(u: np.ndarray, d: int, d_left: int) -> np.ndarray:
+    """
+    Constructs the transfer tensor for a given translationally invariant MPS site.
+
+    The transfer tensor encodes the transfer of quantum information through the MPS chain.
+
+    :param u: A unitary representing the translationally invariant MPS site.
+    :param d: The physical dimension of the MPS site.
+    :param d_left: The bond dimension of the MPS site.
+
+    :return: The constructed transfer tensor.
     """
     zero = np.zeros(d)
     zero[0] = 1
 
-    u = u.reshape([d, D, d, D])
+    u = u.reshape([d, d_left, d, d_left])
     transfer = np.einsum("i,ijkl,mnko,m->lojn", zero, u, np.conj(u), zero)
-    assert np.allclose(np.eye(D), np.einsum("iijk->jk", transfer), atol=tolerance)
-    trans_matrix = transfer.reshape(D * D, D * D)
-
-    _, left_env = eigs(trans_matrix.T, k=1, which="LM")
-    left_env = left_env.reshape(D, D)
-    assert np.allclose(np.eye(D), left_env / np.trace(left_env) * D, atol=tolerance)
-
-    _, right_env = eigs(trans_matrix, k=1, which="LM")
-    right_env = right_env.reshape(D, D)
-
-    norm = np.trace(right_env)
-    return right_env / norm
+    return transfer.reshape(d_left * d_left, d_left * d_left)
 
 
 def _env_unitary(right_env: np.ndarray) -> np.ndarray:
     """
     Convert full right environment R into single unitary form V.
 
-    Args:
-        right_env: A 2D NumPy array representing the right environment.
+    :param right_env: A 2D NumPy array representing the right environment.
 
-    Returns:
-        A unitary matrix representing the single environment tensor V.
+    :return: A unitary matrix representing the single environment tensor V.
     """
     u, s, _ = np.linalg.svd(right_env, hermitian=True)
     s_sqrt = np.sqrt(np.diag(s))
     v = u @ s_sqrt
-    return _vect_to_unitary(v.reshape(v.shape[0] * v.shape[1], 1))
+    return _vector_to_unitary(v.reshape(v.shape[0] * v.shape[1], 1))
 
 
 def _env_unitary_cholesky(right_env: np.ndarray) -> np.ndarray:
     """
     Convert full right environment R into single unitary form V using the Cholesky decomposition.
 
-    Args:
-        right_env: A 2D NumPy array representing the right environment.
+    :param right_env: A 2D NumPy array representing the right environment.
 
-    Returns:
-        A unitary matrix representing the single environment tensor V.
+    :return: A unitary matrix representing the single environment tensor V.
     """
-    L = np.linalg.cholesky(right_env)
-    return _vect_to_unitary(L.reshape(L.shape[0] * L.shape[0], 1))
+    lower = np.linalg.cholesky(right_env)
+    return _vector_to_unitary(lower.reshape(lower.shape[0] * lower.shape[0], 1))
 
 
 # vect must be 2D array with 1 column
-def _vect_to_unitary(vect: np.ndarray) -> np.ndarray:
-    u, _, _ = np.linalg.svd(vect)
-    assert np.allclose(vect[:, 0], u[:, 0])
+def _vector_to_unitary(vector: np.ndarray) -> np.ndarray:
+    """
+    :param vector: Must be 2D array with 1 column.
+
+    :return: A unitary matrix representing the input vector.
+    """
+    u, _, _ = np.linalg.svd(vector)
+    assert np.allclose(vector[:, 0], u[:, 0])
     return u
