@@ -169,6 +169,7 @@ def test_mps_to_circuit_approx_method_is_exact_for_chi_2():
 
 @pytest.mark.parametrize("chi_max", range(1, 9))
 def test_imps_to_circuit_produces_circuit_with_correct_number_of_qubits(chi_max):
+    """Ensure the quantum circuit has the expected number of qubits."""
     psi = _ground_state_tfi(g=1.2, max_D=chi_max)[1]
     A = psi.get_B(0, form="A").itranspose(["vL", "p", "vR"]).to_ndarray()
     for num_sites in range(1, 4):
@@ -181,6 +182,9 @@ def test_imps_to_circuit_produces_circuit_with_correct_number_of_qubits(chi_max)
 
 @pytest.mark.parametrize("chi_max", range(1, 9))
 def test_imps_to_circuit_gives_correct_single_qubit_rdms(chi_max):
+    """Verify that the reduced density matrices (RDMs) of the physical sites in the quantum circuit
+    match those of the original MPS.
+    """
     psi = _ground_state_tfi(g=1.2, max_D=chi_max)[1]
     A = psi.get_B(0, form="A").itranspose(["vL", "p", "vR"]).to_ndarray()
     mps_rdm = DensityMatrix(psi.get_rho_segment([0]).to_ndarray())
@@ -190,6 +194,7 @@ def test_imps_to_circuit_gives_correct_single_qubit_rdms(chi_max):
             A, method="infinite_exact", shape="lpr", num_sites=num_sites
         )
         sv = Statevector(qc)
+        
         # For each physical (non-support) site, calculate its RDM
         for site in range(support, qc.num_qubits - support):
             qubits_to_trace = list(range(qc.num_qubits))
