@@ -194,7 +194,7 @@ def test_imps_to_circuit_gives_correct_single_qubit_rdms(chi_max):
             A, method="infinite_exact", shape="lpr", num_sites=num_sites
         )
         sv = Statevector(qc)
-        
+
         # For each physical (non-support) site, calculate its RDM
         for site in range(support, qc.num_qubits - support):
             qubits_to_trace = list(range(qc.num_qubits))
