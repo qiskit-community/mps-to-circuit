@@ -41,9 +41,7 @@ def test_construct_transfer_matrix(d: int, d_left: int):
 
     transfer_matrix = _construct_transfer_matrix(u, d, d_left)
 
-    transfer = transfer_matrix.reshape(
-        (d_left, d_left, d_left, d_left)
-    )
+    transfer = transfer_matrix.reshape((d_left, d_left, d_left, d_left))
     contraction = np.einsum("iijk->jk", transfer)
     assert np.allclose(
         contraction, np.eye(d_left), atol=tolerance
