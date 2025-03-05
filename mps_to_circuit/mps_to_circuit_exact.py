@@ -61,6 +61,7 @@ def _mps_to_circuit_exact(
         # Combine the physical index and right-virtual index of the tensor to construct an isometry
         # matrix. Check the isometry has the required properties.
         d_left, d, d_right = padded_tensor.shape
+        assert d == 2, "The physical dimension must be equal to two for qubits."
         isometry = padded_tensor.reshape((d * d_left, d_right))
         assert _has_orthonormal_columns(isometry)
 

@@ -78,7 +78,6 @@ def _env_unitary_cholesky(right_env: np.ndarray) -> np.ndarray:
     return _vector_to_unitary(lower.reshape(lower.shape[0] * lower.shape[0], 1))
 
 
-# vect must be 2D array with 1 column
 def _vector_to_unitary(vector: np.ndarray) -> np.ndarray:
     """
     :param vector: Must be 2D array with 1 column.

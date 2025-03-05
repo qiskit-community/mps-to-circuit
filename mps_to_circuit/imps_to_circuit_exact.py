@@ -13,11 +13,21 @@
 import numpy as np
 from qiskit import QuantumCircuit
 
-from .utils import _env_unitary, _gram_schmidt, _pad_tensor, _right_env
+from .utils import (
+    _env_unitary,
+    _env_unitary_cholesky,
+    _gram_schmidt,
+    _pad_tensor,
+    _right_env,
+)
 
 
 def _imps_to_circuit_exact(
-    mps: np.ndarray, *, shape: str = "lpr", num_sites: int
+    mps: np.ndarray,
+    *,
+    shape: str = "lpr",
+    num_sites: int,
+    cholesky: bool = False,
 ) -> QuantumCircuit:
     """
     Convert an infinite, translationally-invariant matrix product state to a quantum circuit.
@@ -28,6 +38,7 @@ def _imps_to_circuit_exact(
     :param shape: The ordering of the dimensions of mps. 'left', 'physical', 'right' by default.
     :param num_sites: The number of physical sites to represent.
         NOTE: requires num_sites + 2 * ⌈log2(D)⌉ qubits, where D is the bond dimension.
+    :param cholesky: Use Cholesky decomposition to create the right environment tensor.
 
     :return: mps quantum circuit representing num_sites sites of the infinite MPS.
     """
@@ -35,7 +46,7 @@ def _imps_to_circuit_exact(
     mps = np.transpose(mps, (shape.find("l"), shape.find("p"), shape.find("r")))
     mps = _pad_tensor(mps)
     d_left, d, d_right = mps.shape
-    assert d == 2
+    assert d == 2, "The physical dimension must be equal to two for qubits."
     assert d_left == d_right
     z = d
 
@@ -55,7 +66,10 @@ def _imps_to_circuit_exact(
     u_right = u_right.transpose(2, 3, 1, 0)
     u_right = u_right.reshape(z * d_right, d * d_left)
 
-    env_unitary = _env_unitary(_right_env(u_right, d=2, d_left=d_left))
+    if cholesky:
+        env_unitary = _env_unitary_cholesky(_right_env(u_right, d=2, d_left=d_left))
+    else:
+        env_unitary = _env_unitary(_right_env(u_right, d=2, d_left=d_left))
 
     # Gate sizes
     u_size = int(np.ceil(np.log2(unitary.shape[0])))

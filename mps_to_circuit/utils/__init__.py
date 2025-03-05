@@ -9,7 +9,7 @@
 # that they have been altered from the originals.
 
 
-from .env_tensor import _env_unitary, _right_env
+from .env_tensor import _env_unitary, _env_unitary_cholesky, _right_env
 from .matrix import (
     _gram_schmidt,
     _has_orthonormal_columns,
@@ -28,4 +28,5 @@ __all__ = [
     "_prepare_mps",
     "_right_env",
     "_env_unitary",
+    "_env_unitary_cholesky",
 ]
