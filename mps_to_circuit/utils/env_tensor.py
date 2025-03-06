@@ -17,6 +17,8 @@ def _right_env(u: np.ndarray, d: int, d_left: int) -> np.ndarray:
     Calculates the right environment of a given translationally invariant MPS.
     Assumes u indices are (zero * vR, p * vL).
 
+    Computes the right environment using the dominant eigenvalue of the transfer matrix.
+
     :param u: A unitary representing the translationally invariant MPS site.
     :param d: The physical dimension of the MPS site.
     :param d_left: The bond dimension of the MPS site.
