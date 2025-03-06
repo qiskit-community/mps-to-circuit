@@ -45,7 +45,7 @@ def _imps_to_circuit_exact(
     mps = _pad_tensor(mps)
     d_left, d, d_right = mps.shape
     assert d == 2, "The physical dimension must be equal to two for qubits."
-    assert d_left == d_right
+    assert d_left == d_right, "The left and right virtual dimensions should be the same."
     z = d
 
     # Reshape to vL * p, vR
