@@ -32,8 +32,6 @@ def _imps_to_circuit_exact(
     """
     Convert an infinite, translationally-invariant matrix product state to a quantum circuit.
 
-    TODO: Make work for infinite-MPS with unit cell of >1 sites (Do we need this?)
-
     :param mps: The tensor representing the translationally invariant MPS in left-canonical form.
     :param shape: The ordering of the dimensions of mps. 'left', 'physical', 'right' by default.
     :param num_sites: The number of physical sites to represent.
