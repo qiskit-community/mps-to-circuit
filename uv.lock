@@ -198,28 +198,32 @@ wheels = [
 
 [[package]]
 name = "mps-to-circuit"
-version = "0.1.0"
+version = "0.1.1"
 source = { virtual = "." }
 dependencies = [
+    { name = "physics-tenpy" },
     { name = "qiskit" },
+    { name = "quimb" },
 ]
 
 [package.dev-dependencies]
 dev = [
     { name = "pytest" },
     { name = "pytest-cov" },
-    { name = "quimb" },
     { name = "ruff" },
 ]
 
 [package.metadata]
-requires-dist = [{ name = "qiskit", specifier = ">=1.0.0" }]
+requires-dist = [
+    { name = "physics-tenpy", specifier = ">=1.0.5" },
+    { name = "qiskit", specifier = ">=1.0.0" },
+    { name = "quimb", specifier = "==1.8.4" },
+]
 
 [package.metadata.requires-dev]
 dev = [
     { name = "pytest", specifier = ">=8.3.3" },
     { name = "pytest-cov", specifier = ">=6.0.0" },
-    { name = "quimb", specifier = "==1.8.4" },
     { name = "ruff", specifier = ">=0.7.0" },
 ]
 
@@ -304,6 +308,30 @@ source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/b2/35/80cf8f6a4f34017a7fe28242dc45161a1baa55c41563c354d8147e8358b2/pbr-6.1.0.tar.gz", hash = "sha256:788183e382e3d1d7707db08978239965e8b9e4e5ed42669bf4758186734d5f24", size = 124032 }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/1d/44/6a65ecd630393d47ad3e7d5354768cb7f9a10b3a0eb2cd8c6f52b28211ee/pbr-6.1.0-py2.py3-none-any.whl", hash = "sha256:a776ae228892d8013649c0aeccbb3d5f99ee15e005a4cbb7e61d55a067b28a2a", size = 108529 },
+]
+
+[[package]]
+name = "physics-tenpy"
+version = "1.0.5"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "numpy" },
+    { name = "scipy" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/f8/91/67cee054c027c3d0705407736ce24aedfe7fb8e8416711fe8cda77cf47db/physics_tenpy-1.0.5.tar.gz", hash = "sha256:5c3df85322154c97bc8d114ccb00a25f2f163d7c91579ec1d3fda4fecbe0e12e", size = 964587 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/56/ee/4de2c3c4435f6b4be4e07fb7bdf6402e30c2734fdddfb75b4831d7748dc3/physics_tenpy-1.0.5-cp310-cp310-macosx_10_9_x86_64.whl", hash = "sha256:60e948ad54253aaa0a631405ff939a52d46d376f9d6a15094da6e701ec521773", size = 1172778 },
+    { url = "https://files.pythonhosted.org/packages/9a/38/aba96ad9d2ae5942ece50e78c1ca2d57708870462bb0e81049fec34aa244/physics_tenpy-1.0.5-cp310-cp310-macosx_11_0_arm64.whl", hash = "sha256:ba0a6d65083e1e19aa67691b8c0f915add26f2bd28a7859477339a29731ce5f9", size = 1149065 },
+    { url = "https://files.pythonhosted.org/packages/f9/f6/a7e83725a51aa1e505678b06ae422fc9ac0959eceb9c226bd5c6bd0b4843/physics_tenpy-1.0.5-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:7cac9e779902a2edb32d2b87ebb5fcf6fcc772179e34ce3cd200846fa222e90e", size = 2465942 },
+    { url = "https://files.pythonhosted.org/packages/37/bf/953da54c593141b97ba2ca1e02603c2439c979d45705f6bd829270acbad6/physics_tenpy-1.0.5-cp310-cp310-win_amd64.whl", hash = "sha256:024f7e6f00444126efe4718ae3ea1bf63636ce42d9bd651718da4025773590ec", size = 1123881 },
+    { url = "https://files.pythonhosted.org/packages/e8/17/2ed37c74af939bf23c319206e30a4f36a669773a12afa0a50156f9960ac4/physics_tenpy-1.0.5-cp311-cp311-macosx_10_9_x86_64.whl", hash = "sha256:e448812e8cd5815bbe50e880e312e046f809656d2b66e6b0ccf9d71485a55b39", size = 1173972 },
+    { url = "https://files.pythonhosted.org/packages/a7/28/06a5b2a2288b398974d77affb481daa6ceca65a4c30b68e0fae48738ba7b/physics_tenpy-1.0.5-cp311-cp311-macosx_11_0_arm64.whl", hash = "sha256:5802366e1252ab64f78bf1819ca3792ed47c6c15357cf11a7b065849a098d56e", size = 1149267 },
+    { url = "https://files.pythonhosted.org/packages/1a/1d/4364cfd9d09ba144261b5fa60b159c7549940ec2185fe6e3a7bbb58251dc/physics_tenpy-1.0.5-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:2db7d6957d08ff083c84065f65f3927bd97e40df73369c25642c322ad318b765", size = 2569280 },
+    { url = "https://files.pythonhosted.org/packages/18/75/05ac80cea25384516dd857c0777e46c8631879d5296c86996f89a882d584/physics_tenpy-1.0.5-cp311-cp311-win_amd64.whl", hash = "sha256:8ae041645a75261bf194980788cfb2cf6b700784fdb456858f766d59954f9905", size = 1124614 },
+    { url = "https://files.pythonhosted.org/packages/40/6c/439379e7151ee819c5af1c173032733f75a5a68865ed96b9a41ad2abd967/physics_tenpy-1.0.5-cp312-cp312-macosx_10_9_x86_64.whl", hash = "sha256:dfdad7261f51d1edcc1f59726cedff942966c4cdad31f60343bed6118f442e61", size = 1173666 },
+    { url = "https://files.pythonhosted.org/packages/1a/2e/edaae8fe0940a2a081fd10e3a032409fe9e687070f7068a8f17f5bcf7821/physics_tenpy-1.0.5-cp312-cp312-macosx_11_0_arm64.whl", hash = "sha256:e1f99c49ad6e6e9dc4d0193aad7faa12130195969e76872c20fcef5c9f99d356", size = 1148726 },
+    { url = "https://files.pythonhosted.org/packages/99/1a/93dc51f179f188872ea05310f7a4383b6f91ef522ba4392130941fb8f904/physics_tenpy-1.0.5-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:587d47912419b262be79a63efef2c1a100e30e3c4ebbd23f828b57b8c04c1a7a", size = 2529850 },
+    { url = "https://files.pythonhosted.org/packages/63/cd/0f4ff19c07ee903245a0775ad53b7f57c4944bf52c2abbb01322bfbe9fbb/physics_tenpy-1.0.5-cp312-cp312-win_amd64.whl", hash = "sha256:cc6cbc535157207882cc38a24cc8e1cca1eaca88503a4996c497d6cae6e27db3", size = 1117091 },
 ]
 
 [[package]]

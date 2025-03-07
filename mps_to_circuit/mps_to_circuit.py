@@ -13,6 +13,7 @@
 import numpy as np
 from qiskit import QuantumCircuit
 
+from .imps_to_circuit_exact import _imps_to_circuit_exact
 from .mps_to_circuit_approx import _mps_to_circuit_approx
 from .mps_to_circuit_exact import _mps_to_circuit_exact
 
@@ -38,5 +39,7 @@ def mps_to_circuit(
             return _mps_to_circuit_exact(mps, shape=shape, **kwargs)
         case "approximate":
             return _mps_to_circuit_approx(mps, shape=shape, **kwargs)
+        case "infinite_exact":
+            return _imps_to_circuit_exact(mps, shape=shape, **kwargs)
         case _:
             raise ValueError(f"Invalid method `{method}`")
