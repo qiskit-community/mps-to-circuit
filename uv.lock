@@ -1,9 +1,6 @@
 version = 1
 requires-python = ">=3.10, <3.13"
 
-[manifest]
-overrides = [{ name = "quimb", specifier = "==1.8.4" }]
-
 [[package]]
 name = "autoray"
 version = "0.7.0"
@@ -198,16 +195,16 @@ wheels = [
 
 [[package]]
 name = "mps-to-circuit"
-version = "0.1.1"
+version = "0.1.2"
 source = { virtual = "." }
 dependencies = [
-    { name = "physics-tenpy" },
     { name = "qiskit" },
     { name = "quimb" },
 ]
 
 [package.dev-dependencies]
 dev = [
+    { name = "physics-tenpy" },
     { name = "pytest" },
     { name = "pytest-cov" },
     { name = "ruff" },
@@ -215,13 +212,13 @@ dev = [
 
 [package.metadata]
 requires-dist = [
-    { name = "physics-tenpy", specifier = ">=1.0.5" },
     { name = "qiskit", specifier = ">=1.0.0" },
-    { name = "quimb", specifier = "==1.8.4" },
+    { name = "quimb", specifier = ">=1.10.0" },
 ]
 
 [package.metadata.requires-dev]
 dev = [
+    { name = "physics-tenpy", specifier = ">=1.0.5" },
     { name = "pytest", specifier = ">=8.3.3" },
     { name = "pytest-cov", specifier = ">=6.0.0" },
     { name = "ruff", specifier = ">=0.7.0" },
@@ -431,7 +428,7 @@ wheels = [
 
 [[package]]
 name = "quimb"
-version = "1.8.4"
+version = "1.10.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "autoray" },
@@ -443,9 +440,9 @@ dependencies = [
     { name = "scipy" },
     { name = "tqdm" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/b5/52/a57ee91fb32abe3d98fed8b740a0a05ca06cb0f54f69da816680110419bd/quimb-1.8.4.tar.gz", hash = "sha256:51b7b6f09a451f44468d7b41ac990635b2e718b437aee8db992f892c3e5d30b5", size = 11480868 }
+sdist = { url = "https://files.pythonhosted.org/packages/aa/e9/96cbbb27a9689b2e6fa484b6226bcff6c520c75b49c0a615f2131323f49d/quimb-1.10.0.tar.gz", hash = "sha256:e79f1be2f9895d966479ccabbd5ec087fc047baad83d3fb08fed264e2d7cc3ff", size = 11495275 }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/12/04/d4d451f3a6b710baafc881ccfed4d793ba23d78a5f712c0b798af2d751a9/quimb-1.8.4-py3-none-any.whl", hash = "sha256:357c42c5c1a696ba8234e1d7e1361aabc182ac76ff046a85fabb37f63d989d2d", size = 541642 },
+    { url = "https://files.pythonhosted.org/packages/38/60/463095864b740c1731365f119e663d9f821b5f482362187921a64a8f9175/quimb-1.10.0-py3-none-any.whl", hash = "sha256:4d270e71c9f03a4a41862682fbffcd076c61d7e40c4b3785a31ae869ce8830c4", size = 1746891 },
 ]
 
 [[package]]
