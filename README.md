@@ -1,6 +1,6 @@
 # MPS to circuit
 
-[![DOI](https://zenodo.org/badge/840381942.svg)](https://doi.org/10.5281/zenodo.14920028)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.14920028.svg)](https://doi.org/10.5281/zenodo.14920028)
 
 Toolbox for converting matrix product states to Qiskit quantum circuits.
 
@@ -108,7 +108,6 @@ If you use `mps-to-circuit` please cite as per the BibTeX below.
                   N. T. M. Siow and
                   S. J. Thomson},
   title        = {qiskit-community/mps-to-circuit},
-  month        = feb,
   year         = 2025,
   publisher    = {Zenodo},
   doi          = {10.5281/zenodo.14920028},
