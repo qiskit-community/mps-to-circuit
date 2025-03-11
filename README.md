@@ -111,8 +111,8 @@ If you use `mps-to-circuit` please cite as per the BibTeX below.
   month        = feb,
   year         = 2025,
   publisher    = {Zenodo},
-  doi          = {10.5281/zenodo.14920029},
-  url          = {https://doi.org/10.5281/zenodo.14920029},
+  doi          = {10.5281/zenodo.14920028},
+  url          = {https://doi.org/10.5281/zenodo.14920028},
 }
 ```
 
