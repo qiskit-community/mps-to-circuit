@@ -103,10 +103,10 @@ If you use `mps-to-circuit` please cite as per the BibTeX below.
 
 ```bibtex
 @software{mpstocircuit2025,
-  author       = {D. A. Millar,
-                  G. W. Pennington,
-                  N. T. M. Siow and
-                  S. J. Thomson},
+  author       = {Millar, D. A. and
+                  Pennington, G. W. and
+                  Siow, N. T. M. and
+                  Thomson, S. J. },
   title        = {qiskit-community/mps-to-circuit},
   month        = feb,
   year         = 2025,
