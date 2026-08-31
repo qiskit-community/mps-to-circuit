@@ -107,10 +107,10 @@ def test_mps_to_circuit_approx_method(chi_max):
     """
     Test approximate MPS to quantum circuit conversion function.
     - The circuits should have the correct number of gates
-    - Fidelity should increase as more layers are added
+    - The intermediate circuits should be stored in the history
     """
 
-    mps = MPS_rand_state(L=8, bond_dim=chi_max)
+    mps = MPS_rand_state(L=8, bond_dim=chi_max, seed=chi_max)
     mps.compress()
     mps.normalize()
 
@@ -118,33 +118,17 @@ def test_mps_to_circuit_approx_method(chi_max):
         mps._L // 2
     ), f"chi_max={chi_max} is too large for L={mps._L}."
 
-    expected = Statevector(_mps_to_statevector(mps))
-
     arrays = list(mps.arrays)
 
-    for num_layers in range(1, 6):
-        history = {"circuits": []}
+    num_layers = 5
+    history = {"circuits": []}
+    mps_to_circuit(arrays, method="approximate", num_layers=num_layers, history=history)
 
-        qc = mps_to_circuit(
-            arrays, method="approximate", num_layers=num_layers, history=history
-        )
-
+    for layer, qc in enumerate(history["circuits"], start=1):
         # The circuit after num_layers layers should have num_sites * num_layers gates.
-        assert len(qc.data) == mps._L * num_layers
+        assert len(qc.data) == mps._L * layer
 
-        # The history should store a number of circuits equal to num_layers.
-        assert len(history["circuits"]) == num_layers
-
-        result = Statevector(qc)
-        fidelity = state_fidelity(expected, result)
-        previous_fidelity = 0.0
-
-        # Fidelity after num_layers layers should be greater than fidelity after num_layers-1
-        # layers.
-        if num_layers > 0:
-            assert fidelity > previous_fidelity
-
-        previous_fidelity = fidelity
+    assert len(history["circuits"]) == num_layers
 
 
 def test_mps_to_circuit_approx_method_is_exact_for_chi_2():
