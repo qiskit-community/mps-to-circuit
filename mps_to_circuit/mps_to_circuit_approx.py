@@ -39,7 +39,7 @@ def _mps_to_circuit_approx(
     :param num_layers: The number of layers to add to the circuit.
     :param compress: Set to `True` to compress the MPS after each layer to a maximum bond dimension
         of `chi_max`.
-    :param cutoff: Cutoff threshold for the compression. Defaults to 0.001.
+    :param cutoff: Cutoff threshold used when `compress` is `True`. Defaults to 0.001.
     :param chi_max: See description for compress. `chi_max` will be ignored if compress is `False`.
     :param history: Dictionary to store intermediate data from algorithm.
 
@@ -48,7 +48,6 @@ def _mps_to_circuit_approx(
     """
     # Prepare Quimb MPS in the correct form.
     _mps = _prepare_mps(mps, shape)
-    compressed_mps = _mps.copy(deep=True)
     disentangled_mps = _mps.copy(deep=True)
 
     # Check chi_max.
@@ -88,15 +87,16 @@ def _mps_to_circuit_approx(
         for i, _ in enumerate(unitaries):
             inverse = unitaries[-(i + 1)].conj().T
             if inverse.shape[0] == 4:
+                # Keep the residual update exact.
                 disentangled_mps.gate_split(
-                    inverse, (i - 1, i), inplace=True, cutoff=cutoff
+                    inverse, (i - 1, i), inplace=True, cutoff=0.0
                 )
             else:
                 disentangled_mps.gate(inverse, (i), inplace=True, contract=True)
 
         if compress:
             # Compress |ψ_(k+1)> to have maximum bond dimension chi_max.
-            disentangled_mps.compress(form="left", max_bond=chi_max)
+            disentangled_mps.compress(form="left", max_bond=chi_max, cutoff=cutoff)
 
         layer += 1
 
